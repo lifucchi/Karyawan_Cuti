@@ -49,7 +49,7 @@
                         <div class="">
                           <form onsubmit="return confirm('Are you sure?');" action="/cuti/delete" method="POST">
                                 <!-- <a class="uk-text-large" href="/karyawan">cuti</a> -->
-                              <input type="hidden" value="<%= karyawan.nik %>" name="nik">
+                              <input type="hidden" value="<%= karyawan.id %>" name="id">
                               <button id="delete" type="submit" class="uk-button uk-button-small uk-button-default delete" ><i class="material-icons md-24">delete</i></button>
                           </form>
                         </div>
@@ -116,7 +116,7 @@
                 <tr  >
                     <td><%= karyawan.karyawanNik%></td>
                     <td><%= karyawan.karyawan.nama%></td>
-                    <td><%= karyawan.lamacuti%></td>
+                    <td><%= karyawan.lamacuti%> -- <%= karyawan.sisacuti%></td>
     
                 </tr>
                   <% }) %>

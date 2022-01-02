@@ -7,8 +7,7 @@ exports.getCuti = (req,res) => {
 
   const cutiKaryawan =  
       Cuti.findAll({
-        include: [{ model: Karyawan, attributes: ['nama']}],
-        attributes: ['karyawanNik', 'tanggalcuti', 'keterangan' ]
+        include: [{ model: Karyawan, attributes: ['nama']}]
     });
     const lebihCuti = 
     Cuti.findAll({
@@ -20,24 +19,17 @@ exports.getCuti = (req,res) => {
   const sisaCuti =
   Cuti.findAll({
     include: [{ model: Karyawan, attributes: ['nama']}],
-    attributes: ['karyawanNik',  [sequelize.literal('12 - lamacuti'), 'lamacuti'] ]
+    attributes: ['karyawanNik',  [sequelize.literal('12 - lamacuti'), 'sisacuti'] ]
 
 })
-
-      // res.render('./cuti', {
-      //   pageTitle: "Cuti Karyawan",
-      //   active: "uk-active",
-      //   daftarkaryawan: cuti
-      // });
-
 
       Promise
       .all([cutiKaryawan,lebihCuti, sisaCuti])
       .then(count => {
           console.log('**********COMPLETE RESULTS****************');
 
-   
-           console.log(count[2]);
+          console.log(count[2][0]);
+           console.log(count[2][0].sisacuti);
 
   
           res.render('./cuti', {
@@ -79,10 +71,10 @@ exports.getCuti = (req,res) => {
     const keterangan = req.body.keterangan;
 
     Cuti.create({
-    karyawanNik: nik,
-    tanggalcuti : tanggalcuti,
-    lamacuti : lamacuti,
-    keterangan : keterangan
+      karyawanNik: nik,
+      tanggalcuti : tanggalcuti,
+      lamacuti : lamacuti,
+      keterangan : keterangan
     })
     .then(result => {
         // res.send("Data Karyawan Cuti sudah ditambahkan ");
@@ -93,15 +85,15 @@ exports.getCuti = (req,res) => {
   };
 
   exports.deleteCutiKaryawan = ( req,res, next) => {
-    const id = req.params.id;
+    const id = req.body.id;
     Cuti.findByPk(id)
       .then(hasil => {
         return hasil.destroy();
       })
       .then(result => {
-        res.send("Data Cuti Karyawan sudah dihapus ");
+        // res.send("Data Cuti Karyawan sudah dihapus ");
 
-        // res.redirect('/admin/buktiTemuanruang');
+        res.redirect('/cuti');
       })
       .catch(err => console.log(err));
   };
