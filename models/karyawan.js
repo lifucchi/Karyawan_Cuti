@@ -4,7 +4,7 @@ const sequelize = require('../util/database');
 
 const Karyawan = sequelize.define('karyawan', {
   nik: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     primaryKey: true,
   },
