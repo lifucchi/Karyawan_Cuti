@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partial/head'); %>
+<body>
+
+    <%- include('./partial/header'); %>
+
+    <div class="uk-section uk-section-default">
+        <div class="uk-container uk-container-small">
+          <div id="result"></div>
+        
+          <form id="myForm" method="post" action="/cuti" novalidate>
+            <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-select">Pilih Karyawan</label>
+              <div class="uk-form-controls">
+                  <select required class="uk-select" id="form-stacked-select" name="nik">
+                    <% daftarkaryawan.forEach((karyawan) => { %>
+                        <option value="<%= karyawan.nik %>"> <%= karyawan.nik %> - <%= karyawan.nama %></option>
+                     <% }); %>
+                  </select>
+              </div>
+            </div>
+      
+            <div class="uk-margin">
+                <label class="uk-form-label">Tanggal Cuti</label>
+                <input required name="tanggalcuti" class="uk-input" type="date" id="uk_dp_1" data-uk-datepicker="{format:'DD/MM/YYYY'}">
+                <span class="uk-text-danger"></span>
+              </div>
+            
+            <div class="uk-margin">
+                <label class="uk-form-label">Lama Cuti</label>
+                <input id="lamacuti" class="uk-input" type="text" name="lamacuti" required pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$">
+                <span class="uk-text-danger"></span>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Keterangan</label>
+                <input id="keterangan" class="uk-input" type="text" name="keterangan" required pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$">
+                <span class="uk-text-danger"></span>
+              </div>
+          
+            <button class="uk-button uk-button-secondary" type="submit">Tambah</button>
+            </form>
+          
+        </div> 
+      </div> 
+
+</body>
+</html>
+

@@ -20,7 +20,8 @@ exports.getCuti = (req,res) => {
   const sisaCuti =
   Cuti.findAll({
     include: [{ model: Karyawan, attributes: ['nama']}],
-    attributes: ['karyawanNik', [sequelize.literal('12 - lamacuti'), 'sisacuti'] ]
+    attributes: ['karyawanNik',  [sequelize.literal('12 - lamacuti'), 'lamacuti'] ]
+
 })
 
       // res.render('./cuti', {
@@ -35,6 +36,9 @@ exports.getCuti = (req,res) => {
       .then(count => {
           console.log('**********COMPLETE RESULTS****************');
 
+   
+           console.log(count[2]);
+
   
           res.render('./cuti', {
             pageTitle: 'Cuti Karyawan',
@@ -48,12 +52,25 @@ exports.getCuti = (req,res) => {
           console.log('**********ERROR RESULT****************');
           console.log(err);
       });
-
-
-
-
    
   };
+
+
+  exports.getFormCuti = (req,res) => {
+    Karyawan.findAll()
+    .then( karyawan =>{
+      res.render('./cuti-form', {
+        pageTitle: "Cuti Karyawan",
+        active: "uk-active",
+        daftarkaryawan: karyawan
+      });  
+    })
+    .catch(err => {
+      console.log('**********ERROR RESULT****************');
+      console.log(err);
+  });
+    };
+
 
   exports.postAddCuti = (req,res,next) => {
     const nik = req.body.nik;
@@ -68,8 +85,8 @@ exports.getCuti = (req,res) => {
     keterangan : keterangan
     })
     .then(result => {
-        res.send("Data Karyawan Cuti sudah ditambahkan ");
-    //   res.redirect('/admin/checklistmeja');
+        // res.send("Data Karyawan Cuti sudah ditambahkan ");
+      res.redirect('/cuti');
     }
     ).catch(err => console.log(err));
   
