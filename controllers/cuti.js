@@ -1,21 +1,58 @@
-const Cuti = require('../models/cuti');
 
 const Karyawan = require('../models/karyawan');
+const Cuti = require('../models/cuti');
+const sequelize = require('../util/database');
 
 exports.getCuti = (req,res) => {
 
-    Cuti.findAll({
+  const cutiKaryawan =  
+      Cuti.findAll({
         include: [{ model: Karyawan, attributes: ['nama']}],
         attributes: ['karyawanNik', 'tanggalcuti', 'keterangan' ]
-    })
-    .then(cuti => {
-      res.render('./cuti', {
-        pageTitle: "Cuti Karyawan",
-        active: "uk-active",
-        daftarkaryawan: cuti
+    });
+    const lebihCuti = 
+    Cuti.findAll({
+      include: [{ model: Karyawan, attributes: ['nama']}],
+      attributes: ['karyawanNik', 'tanggalcuti', 'keterangan'],
+      having: sequelize.where(sequelize.fn('COUNT', sequelize.col('karyawanNik')), '>=', 2)
+  })
+
+  const sisaCuti =
+  Cuti.findAll({
+    include: [{ model: Karyawan, attributes: ['nama']}],
+    attributes: ['karyawanNik', [sequelize.literal('12 - lamacuti'), 'sisacuti'] ]
+})
+
+      // res.render('./cuti', {
+      //   pageTitle: "Cuti Karyawan",
+      //   active: "uk-active",
+      //   daftarkaryawan: cuti
+      // });
+
+
+      Promise
+      .all([cutiKaryawan,lebihCuti, sisaCuti])
+      .then(count => {
+          console.log('**********COMPLETE RESULTS****************');
+
+  
+          res.render('./cuti', {
+            pageTitle: 'Cuti Karyawan',
+            lebihCuti: count[1],
+            sisaCuti: count[2],
+            daftarkaryawan: count[0],
+          });
+
+      })
+      .catch(err => {
+          console.log('**********ERROR RESULT****************');
+          console.log(err);
       });
-    })
-    .catch(err => console.log(err));
+
+
+
+
+   
   };
 
   exports.postAddCuti = (req,res,next) => {

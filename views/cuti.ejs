@@ -77,35 +77,16 @@
                         <th>nama</th>
                         <th>tanggal cuti</th>
                         <th>keterangan</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody >
-                  <% daftarkaryawan.forEach((karyawan) => { %>
+                  <% lebihCuti.forEach((karyawan) => { %>
                 <tr  >
                     <td><%= karyawan.karyawanNik%></td>
                     <td><%= karyawan.nama%></td>
                     <td><%= karyawan.tanggalcuti%></td>
                     <td><%= karyawan.keterangan%></td>
     
-                    <td>
-                      <div class="uk-grid uk-grid-collapse uk-margin-remove ">
-                        <div class="">
-                          <form class="" action="/cuti/edit %>" method="get">
-                            <input type="hidden" value="<%= karyawan.nik %>" name="update">
-                            <button id="edit" type="submit" class="uk-button uk-button-small uk-button-default edit" ><i class="material-icons md-24">mode_edit</button>
-                          </form>
-                        </div>
-    
-                        <div class="">
-                          <form onsubmit="return confirm('Are you sure?');" action="/cuti/delete" method="POST">
-                                <!-- <a class="uk-text-large" href="/karyawan">cuti</a> -->
-                              <input type="hidden" value="<%= karyawan.nik %>" name="nik">
-                              <button id="delete" type="submit" class="uk-button uk-button-small uk-button-default delete" ><i class="material-icons md-24">delete</i></button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
                 </tr>
                   <% }) %>
                 </tbody>
@@ -127,9 +108,7 @@
                     <tr>
                         <th>nik</th>
                         <th>nama</th>
-                        <th>tanggal cuti</th>
-                        <th>keterangan</th>
-                        <th>Aksi</th>
+                        <th>sisa cuti</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -137,27 +116,8 @@
                 <tr  >
                     <td><%= karyawan.karyawanNik%></td>
                     <td><%= karyawan.nama%></td>
-                    <td><%= karyawan.tanggalcuti%></td>
-                    <td><%= karyawan.keterangan%></td>
+                    <td><%= karyawan.sisacuti%></td>
     
-                    <td>
-                      <div class="uk-grid uk-grid-collapse uk-margin-remove ">
-                        <div class="">
-                          <form class="" action="/cuti/edit %>" method="get">
-                            <input type="hidden" value="<%= karyawan.nik %>" name="update">
-                            <button id="edit" type="submit" class="uk-button uk-button-small uk-button-default edit" ><i class="material-icons md-24">mode_edit</button>
-                          </form>
-                        </div>
-    
-                        <div class="">
-                          <form onsubmit="return confirm('Are you sure?');" action="/cuti/delete" method="POST">
-                                <!-- <a class="uk-text-large" href="/karyawan">cuti</a> -->
-                              <input type="hidden" value="<%= karyawan.nik %>" name="nik">
-                              <button id="delete" type="submit" class="uk-button uk-button-small uk-button-default delete" ><i class="material-icons md-24">delete</i></button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
                 </tr>
                   <% }) %>
                 </tbody>
