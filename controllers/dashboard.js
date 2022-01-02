@@ -9,7 +9,7 @@ exports.getDashboard = (req,res) => {
     Karyawan
     .findAll({
         order: [
-            ['tanggalbergabung', 'DESC']
+            ['tanggalbergabung', 'ASC']
         ],
         attributes: ['nama'],
         limit:3
