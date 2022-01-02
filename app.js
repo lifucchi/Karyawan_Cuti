@@ -31,7 +31,7 @@ Cuti.belongsTo(Karyawan , { constraints:true, onDelete:'CASCADE'} );
 sequelize
   .sync()
   // .sync({alter: true})
-//   .sync({force: true})
+  // .sync({force: true})
   .then(result => {
     app.listen(3000);
   })

@@ -5,5 +5,179 @@
 
     <%- include('./partial/header'); %>
 
+    <div class="uk-card uk-card-body">
+        <!-- <button class="uk-button uk-button-default uk-button-medium uk-button-secondary uk-align-right">Tambah Karyawan</button> -->
+        <div class="uk-width-medium-8-10">
+            <h1>Daftar Karyawan yang pernah mengambil cuti</h1>
+        </div>
+        <div class="uk-width-medium-2-10">
+            <a class="uk-button uk-button-default uk-button-medium uk-button-secondary uk-align-right" href="/cuti/add">
+                Tambah <%= pageTitle%>
+            </a>
+      </div>
+    </div>
+
+    <div class="uk-card uk-card-body">
+        <div class="uk-overflow-auto">
+            <table id="dt_default" class="uk-table uk-table-middle uk-table-divider ">
+                <thead>
+                    <tr>
+                        <th>nik</th>
+                        <th>nama</th>
+                        <th>tanggal cuti</th>
+                        <th>keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody >
+                  <% daftarkaryawan.forEach((karyawan) => { %>
+                <tr  >
+                    <td><%= karyawan.karyawanNik%></td>
+                    <td><%= karyawan.nama%></td>
+                    <td><%= karyawan.tanggalcuti%></td>
+                    <td><%= karyawan.keterangan%></td>
+    
+                    <td>
+                      <div class="uk-grid uk-grid-collapse uk-margin-remove ">
+                        <div class="">
+                          <form class="" action="/cuti/edit %>" method="get">
+                            <input type="hidden" value="<%= karyawan.nik %>" name="update">
+                            <button id="edit" type="submit" class="uk-button uk-button-small uk-button-default edit" ><i class="material-icons md-24">mode_edit</button>
+                          </form>
+                        </div>
+    
+                        <div class="">
+                          <form onsubmit="return confirm('Are you sure?');" action="/cuti/delete" method="POST">
+                                <!-- <a class="uk-text-large" href="/karyawan">cuti</a> -->
+                              <input type="hidden" value="<%= karyawan.nik %>" name="nik">
+                              <button id="delete" type="submit" class="uk-button uk-button-small uk-button-default delete" ><i class="material-icons md-24">delete</i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+                  <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="uk-card uk-card-body">
+        <!-- <button class="uk-button uk-button-default uk-button-medium uk-button-secondary uk-align-right">Tambah Karyawan</button> -->
+        <div class="uk-width-medium-8-10">
+            <h1>Daftar karyawan yang saat ini pernah mengambil cuti lebih dari satu kali</h1>
+        </div>
+    </div>
+    <div class="uk-card uk-card-body">
+        <div class="uk-overflow-auto">
+            <table id="dt_default1" class="uk-table uk-table-middle uk-table-divider ">
+                <thead>
+                    <tr>
+                        <th>nik</th>
+                        <th>nama</th>
+                        <th>tanggal cuti</th>
+                        <th>keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody >
+                  <% daftarkaryawan.forEach((karyawan) => { %>
+                <tr  >
+                    <td><%= karyawan.karyawanNik%></td>
+                    <td><%= karyawan.nama%></td>
+                    <td><%= karyawan.tanggalcuti%></td>
+                    <td><%= karyawan.keterangan%></td>
+    
+                    <td>
+                      <div class="uk-grid uk-grid-collapse uk-margin-remove ">
+                        <div class="">
+                          <form class="" action="/cuti/edit %>" method="get">
+                            <input type="hidden" value="<%= karyawan.nik %>" name="update">
+                            <button id="edit" type="submit" class="uk-button uk-button-small uk-button-default edit" ><i class="material-icons md-24">mode_edit</button>
+                          </form>
+                        </div>
+    
+                        <div class="">
+                          <form onsubmit="return confirm('Are you sure?');" action="/cuti/delete" method="POST">
+                                <!-- <a class="uk-text-large" href="/karyawan">cuti</a> -->
+                              <input type="hidden" value="<%= karyawan.nik %>" name="nik">
+                              <button id="delete" type="submit" class="uk-button uk-button-small uk-button-default delete" ><i class="material-icons md-24">delete</i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+                  <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="uk-card uk-card-body">
+        <!-- <button class="uk-button uk-button-default uk-button-medium uk-button-secondary uk-align-right">Tambah Karyawan</button> -->
+        <div class="uk-width-medium-8-10">
+            <h1>Daftar sisa cuti karyawan</h1>
+        </div>
+    </div>
+    <div class="uk-card uk-card-body">
+        <div class="uk-overflow-auto">
+            <table id="dt_default2" class="uk-table uk-table-middle uk-table-divider ">
+                <thead>
+                    <tr>
+                        <th>nik</th>
+                        <th>nama</th>
+                        <th>tanggal cuti</th>
+                        <th>keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody >
+                  <% daftarkaryawan.forEach((karyawan) => { %>
+                <tr  >
+                    <td><%= karyawan.karyawanNik%></td>
+                    <td><%= karyawan.nama%></td>
+                    <td><%= karyawan.tanggalcuti%></td>
+                    <td><%= karyawan.keterangan%></td>
+    
+                    <td>
+                      <div class="uk-grid uk-grid-collapse uk-margin-remove ">
+                        <div class="">
+                          <form class="" action="/cuti/edit %>" method="get">
+                            <input type="hidden" value="<%= karyawan.nik %>" name="update">
+                            <button id="edit" type="submit" class="uk-button uk-button-small uk-button-default edit" ><i class="material-icons md-24">mode_edit</button>
+                          </form>
+                        </div>
+    
+                        <div class="">
+                          <form onsubmit="return confirm('Are you sure?');" action="/cuti/delete" method="POST">
+                                <!-- <a class="uk-text-large" href="/karyawan">cuti</a> -->
+                              <input type="hidden" value="<%= karyawan.nik %>" name="nik">
+                              <button id="delete" type="submit" class="uk-button uk-button-small uk-button-default delete" ><i class="material-icons md-24">delete</i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+                  <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#dt_default').DataTable({
+                responsive: true
+            });
+            $('#dt_default1').DataTable({
+                responsive: true
+            });
+            $('#dt_default2').DataTable({
+                responsive: true
+            });
+    } );
+    </script>
+
 </body>
 </html>

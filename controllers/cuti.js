@@ -9,8 +9,11 @@ exports.getCuti = (req,res) => {
         attributes: ['karyawanNik', 'tanggalcuti', 'keterangan' ]
     })
     .then(cuti => {
-        console.log(cuti);
-        res.send(cuti)
+      res.render('./cuti', {
+        pageTitle: "Cuti Karyawan",
+        active: "uk-active",
+        daftarkaryawan: cuti
+      });
     })
     .catch(err => console.log(err));
   };
