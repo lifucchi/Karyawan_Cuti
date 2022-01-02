@@ -1,22 +1,47 @@
 <header>
     <!-- Main Navbar -->
-    <nav class="uk-container uk-navbar">
-        <div class="uk-navbar-left">
-            <ul class="uk-navbar-nav">
-                <li class="uk-active">
-                    <a href="/">Cuti<strong>Karyawan</strong></a>
-                </li> 
-            </ul>
+    <div class=" uk-preserve-color">
+        <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky;  top: 200;  right: 200"> 
+            <nav class="uk-navbar-container  uk-navbar">
+                <div class="uk-navbar-left" style="padding-left: 50px;">
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active">
+                            <a href="/">Cuti<strong>Karyawan</strong></a>
+                        </li> 
+                    </ul>
+                </div>
+                <div class="uk-navbar-right" style="padding-right: 50px;">
+                    <ul class="uk-navbar-nav uk-visible@s " style="padding-right: 30px;">
+                        <li><a class="uk-text-large  " href="/karyawan">karyawan</a></li>
+                        <li><a class="uk-text-large" href="/cuti">cuti</a></li>
+                        
+                    </ul>
+                    <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
+                </div>
+            </nav>
         </div>
-        <div class="uk-navbar-right">
-            <ul class="uk-navbar-nav uk-visible@s ">
-                <li><a class="uk-text-large  " href="/karyawan">karyawan</a></li>
-                <li><a class="uk-text-large" href="/cuti">cuti</a></li>
-                
-            </ul>
-            <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
-        </div>
-    </nav>
+    
+    
+    <!-- </div>
+        <nav class="uk-container uk-navbar ">
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active">
+                        <a href="/">Cuti<strong>Karyawan</strong></a>
+                    </li> 
+                </ul>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav uk-visible@s ">
+                    <li><a class="uk-text-large  " href="/karyawan">karyawan</a></li>
+                    <li><a class="uk-text-large" href="/cuti">cuti</a></li>
+                    
+                </ul>
+                <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
+            </div>
+        </nav>
+    </div> -->
+
 </header>
 
 
