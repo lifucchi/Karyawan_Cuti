@@ -5,6 +5,6 @@ const router = express.Router();
 
 
 router.get('/', dashboardController.getDashboard);
-
+router.get('/sisacuti', dashboardController.getSisaCuti);
 
 module.exports = router;

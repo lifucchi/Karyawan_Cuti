@@ -2,7 +2,7 @@
 const Karyawan = require('../models/karyawan');
 
 exports.getKaryawan = (req,res) => {
-    Karyawan.findAll()
+    Karyawan.findAll({attributes: ['nik','nama', 'alamat', 'tanggallahir', 'tanggalbergabung' ]})
     .then(karyawan => {
         res.send(karyawan)
     })
@@ -61,7 +61,6 @@ exports.getKaryawan = (req,res) => {
         karyawan.alamat = alamat;
         karyawan.tanggallahir = tanggallahir;
         karyawan.tanggalbergabung = tanggalbergabung;
-
       return karyawan.save();
     })
     .then(result => {

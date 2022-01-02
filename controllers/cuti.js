@@ -1,13 +1,18 @@
 const Cuti = require('../models/cuti');
 
+const Karyawan = require('../models/karyawan');
+
 exports.getCuti = (req,res) => {
 
-    Cuti.findAll()
+    Cuti.findAll({
+        include: [{ model: Karyawan, attributes: ['nama']}],
+        attributes: ['karyawanNik', 'tanggalcuti', 'keterangan' ]
+    })
     .then(cuti => {
+        console.log(cuti);
         res.send(cuti)
     })
     .catch(err => console.log(err));
-  
   };
 
   exports.postAddCuti = (req,res,next) => {

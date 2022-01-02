@@ -1,20 +1,35 @@
 // const sequelize = require('../util/database');
 
+
+const Karyawan = require('../models/karyawan');
+const Cuti = require('../models/cuti');
+const sequelize = require('../util/database');
+
 exports.getDashboard = (req,res) => {
-    // res.send('<h1>hello admin</h1>')
+    Karyawan
+    .findAll({
+        order: [
+            ['tanggalbergabung', 'DESC']
+        ],
+        attributes: ['nama'],
+        limit:3
+      }
+    )
+    .then(karyawan => {
+        res.send(karyawan)
+    })
+    .catch(err => console.log(err));
+  };
 
-    res.send('Hello World')
+  exports.getSisaCuti = (req,res) => {
 
-    // res.render('./anggota/dashboard', {
-    //     pageTitle: 'Dashboard',
-    //     path: '/',
-    //     schedules: count[3],
-    //     tanggal : nowTanggal2,
-    //     mejaTerbaik : count[0][0],
-    //     lantaiTerbaik: lantaiTerbaik,
-    //     monthMinusOneName:monthMinusOneName,
-    //     articles:count[4]
-    //   });
-    
-  
+    Cuti.findAll({
+        include: [{ model: Karyawan, attributes: ['nama']}],
+        attributes: ['karyawanNik', [sequelize.literal('12 - lamacuti'), 'sisacuti'] ]
+    })
+    .then(cuti => {
+        console.log(cuti);
+        res.send(cuti)
+    })
+    .catch(err => console.log(err));
   };
