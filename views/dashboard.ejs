@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partial/head'); %>
+
+
+<body >
+    <%- include('./partial/header'); %>
+
+    <div class="uk-cover-container uk-height-large uk-dark">
+        <!-- <img src="/images/employee.jpg" alt="" uk-cover> -->
+        <img data-src="images/employee.jpg" width="1800" height="1200%" alt="" uk-img>
+
+    </div>
+
+    <main>
+        <section class="uk-section uk-section-default">
+          <div class="uk-container">
+            <div class="uk-grid uk-flex-center uk-text-center">
+              <div class="uk-width-1-2@s">
+                <h3 class="uk-heading-primary">Selamat Datang Pegawai Baru !! </h3>
+                <ul class="uk-list uk-list-divider">
+                    <% karyawan.forEach((karyawanbaru) => { %>
+                    <li>  <%= karyawanbaru.nama%> </li>
+                    <% }) %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+
+
+
+</body>
+</html>

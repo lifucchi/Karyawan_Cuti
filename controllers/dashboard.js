@@ -16,7 +16,11 @@ exports.getDashboard = (req,res) => {
       }
     )
     .then(karyawan => {
-        res.send(karyawan)
+        // res.send(karyawan)
+        res.render('./dashboard', {
+          pageTitle: "Karyawan",
+          karyawan: karyawan,
+        });
     })
     .catch(err => console.log(err));
   };
