@@ -5,9 +5,9 @@ const router = express.Router();
 
 
 router.get('/', karyawanController.getKaryawan);
-router.post('/add', karyawanController.postAddKaryawan);
-router.delete('/delete/:id', karyawanController.deleteKaryawan);
-router.put('/edit/:id', karyawanController.putEditKaryawan);
+router.post('/', karyawanController.postAddKaryawan);
+router.delete('/:id', karyawanController.deleteKaryawan);
+router.put('/:id', karyawanController.putEditKaryawan);
 
 
 

@@ -26,7 +26,7 @@ app.use('/cuti',cutiRoutes);
 // app.use(flash());
 
 Karyawan.hasMany(Cuti,  {foreignKey: 'karyawanNik', as: 'karyawanCuti' });
-Cuti.belongsTo(Karyawan , { constraints:true});
+Cuti.belongsTo(Karyawan , { constraints:true, onDelete:'CASCADE'} );
 
 sequelize
   .sync()

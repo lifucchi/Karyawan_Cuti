@@ -7,6 +7,7 @@ const Cuti = sequelize.define('cuti', {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true
   },
   tanggalcuti: {
     type: Sequelize.DATEONLY,
