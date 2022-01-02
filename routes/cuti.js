@@ -8,5 +8,6 @@ router.get('/add', cutiController.getFormCuti);
 router.post('/', cutiController.postAddCuti);
 router.post('/delete', cutiController.deleteCutiKaryawan);
 router.post('/edit', cutiController.putEditCutiKaryawan);
+router.get('/edit', cutiController.getFormEditCutiKaryawan);
 
 module.exports = router;

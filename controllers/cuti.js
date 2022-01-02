@@ -59,7 +59,28 @@ exports.getCuti = (req,res) => {
       console.log(err);
   });
     };
+    
 
+    exports.getFormEditCutiKaryawan = (req,res) => {
+      const id = req.query.update;
+
+      Cuti.findByPk(id)
+      .then(cuti => {
+
+        Karyawan.findAll()
+        .then( karyawan =>{
+          res.render('./cuti-form-edit', {
+            pageTitle: "Cuti Karyawan",
+            active: "uk-active",
+            cuti: cuti,
+            daftarkaryawan: karyawan
+          });  
+        })
+
+      })
+      .catch(err => console.log(err));
+ 
+      };
 
   exports.postAddCuti = (req,res,next) => {
     const nik = req.body.nik;
@@ -96,7 +117,7 @@ exports.getCuti = (req,res) => {
   };
   
   exports.putEditCutiKaryawan = (req,res,next) => {
-    const id = req.params.id;
+    const id = req.body.id;
     const tanggalcuti = req.body.tanggalcuti;
     const lamacuti = req.body.lamacuti;
     const keterangan = req.body.keterangan; 
@@ -109,8 +130,8 @@ exports.getCuti = (req,res) => {
       return karyawan.save();
     })
     .then(result => {
-    //   res.redirect('/admin/checklistmeja');
-    res.send("Data Karyawan sudah diubah ")
+      res.redirect('/cuti');
+    // res.send("Data Karyawan sudah diubah ")
     
     })
     .catch(err => console.log(err));
