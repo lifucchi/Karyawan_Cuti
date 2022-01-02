@@ -112,12 +112,11 @@
                     </tr>
                 </thead>
                 <tbody >
-                  <% daftarkaryawan.forEach((karyawan) => { %>
+                  <% sisaCuti.forEach((karyawan) => { %>
                 <tr  >
                     <td><%= karyawan.karyawanNik%></td>
                     <td><%= karyawan.karyawan.nama%></td>
-                    <td><%= karyawan.lamacuti%> -- <%= karyawan.sisacuti%></td>
-    
+                    <td><%= karyawan.lamacuti%></td>
                 </tr>
                   <% }) %>
                 </tbody>

@@ -30,7 +30,8 @@ exports.getDashboard = (req,res) => {
 
     Cuti.findAll({
         include: [{ model: Karyawan, attributes: ['nama']}],
-        attributes: ['karyawanNik',  [sequelize.literal('12 - lamacuti'), 'lamacuti']]
+        attributes: ['karyawanNik',  [sequelize.literal('12 - sum(lamacuti)'), 'lamacuti']],
+        group : ['karyawanNik'],
     })
     .then(cuti => {
         console.log(cuti);
