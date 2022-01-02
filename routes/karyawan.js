@@ -5,10 +5,8 @@ const router = express.Router();
 
 
 router.get('/', karyawanController.getKaryawan);
-router.get('/add', karyawanController.postAddKaryawan);
-
-
-
+router.post('/add', karyawanController.postAddKaryawan);
+router.delete('/delete/:id', karyawanController.deleteKaryawan);
 
 
 module.exports = router;

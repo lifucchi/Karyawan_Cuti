@@ -17,7 +17,6 @@ exports.getKaryawan = (req,res) => {
     const tanggallahir = req.body.tanggallahir;
     const tanggalbergabung = req.body.tanggalbergabung;  
 
-
     Karyawan.create({
     nik: nik,
     nama:nama,
@@ -32,3 +31,20 @@ exports.getKaryawan = (req,res) => {
     ).catch(err => console.log(err));
   
   };
+
+  exports.deleteKaryawan = ( req,res, next) => {
+    const id = req.params.id;
+    console.log(id);
+    console.log(id);
+    Karyawan.findByPk(id)
+      .then(hasil => {
+        return hasil.destroy();
+      })
+      .then(result => {
+        res.send("Data Karyawan sudah dihapus ")
+
+        // res.redirect('/admin/buktiTemuanruang');
+      })
+      .catch(err => console.log(err));
+  };
+  
