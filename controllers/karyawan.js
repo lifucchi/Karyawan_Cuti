@@ -14,6 +14,16 @@ exports.getKaryawan = (req,res) => {
 
   };
 
+  exports.getFormKaryawan = (req,res) => {
+
+      res.render('./karyawan-form', {
+        pageTitle: "Karyawan",
+        active: "uk-active"
+      });
+  
+
+  };
+
   exports.postAddKaryawan = (req,res,next) => {
     const nik = req.body.nik;
     const nama = req.body.nama;
@@ -29,12 +39,16 @@ exports.getKaryawan = (req,res) => {
     tanggalbergabung:tanggalbergabung
     })
     .then(result => {
-        res.send("Data Karyawan sudah ditambahkan ");
+      res.redirect('/karyawan/');
+
+        // res.send("Data Karyawan sudah ditambahkan ");
     //   res.redirect('/admin/checklistmeja');
     }
     ).catch(err => console.log(err));
   
   };
+
+  
 
   exports.deleteKaryawan = ( req,res, next) => {
     const id = req.body.nik;

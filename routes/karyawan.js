@@ -5,9 +5,11 @@ const router = express.Router();
 
 
 router.get('/', karyawanController.getKaryawan);
+router.get('/add', karyawanController.getFormKaryawan);
+
 router.post('/', karyawanController.postAddKaryawan);
 router.post('/delete', karyawanController.deleteKaryawan);
-router.put('/:id', karyawanController.putEditKaryawan);
+router.post('/edit', karyawanController.putEditKaryawan);
 
 
 
