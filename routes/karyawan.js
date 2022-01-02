@@ -10,6 +10,8 @@ router.get('/add', karyawanController.getFormKaryawan);
 router.post('/', karyawanController.postAddKaryawan);
 router.post('/delete', karyawanController.deleteKaryawan);
 router.post('/edit', karyawanController.putEditKaryawan);
+router.get('/edit', karyawanController.getFormEditKaryawan);
+
 
 
 

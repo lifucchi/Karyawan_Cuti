@@ -15,14 +15,29 @@ exports.getKaryawan = (req,res) => {
   };
 
   exports.getFormKaryawan = (req,res) => {
-
       res.render('./karyawan-form', {
         pageTitle: "Karyawan",
         active: "uk-active"
       });
   
-
   };
+
+
+  exports.getFormEditKaryawan = (req,res) => {
+    const id = req.query.update;
+
+    Karyawan.findByPk(id)
+    .then(karyawan => {
+      console.log(karyawan);
+      res.render('./karyawan-form-edit', {
+        pageTitle: "Karyawan",
+        active: "uk-active",
+        karyawan: karyawan
+      });
+    })
+    .catch(err => console.log(err));
+
+};
 
   exports.postAddKaryawan = (req,res,next) => {
     const nik = req.body.nik;
@@ -66,11 +81,13 @@ exports.getKaryawan = (req,res) => {
   };
   
   exports.putEditKaryawan = (req,res,next) => {
-    const id = req.params.id;
+    const id = req.body.nik;
     const nama = req.body.nama;
     const alamat = req.body.alamat;
     const tanggallahir = req.body.tanggallahir;
     const tanggalbergabung = req.body.tanggalbergabung;  
+    console.log(id);
+   
     
     Karyawan.findByPk(id)
     .then(karyawan => {
@@ -81,8 +98,8 @@ exports.getKaryawan = (req,res) => {
       return karyawan.save();
     })
     .then(result => {
-    //   res.redirect('/admin/checklistmeja');
-    res.send("Data Karyawan sudah diubah ")
+      res.redirect('/karyawan');
+    // res.send("Data Karyawan sudah diubah ")
     
     })
     .catch(err => console.log(err));
