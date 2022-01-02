@@ -18,6 +18,7 @@ exports.getDashboard = (req,res) => {
     .then(karyawan => {
         // res.send(karyawan)
         res.render('./dashboard', {
+          active: "",
           pageTitle: "Karyawan",
           karyawan: karyawan,
         });

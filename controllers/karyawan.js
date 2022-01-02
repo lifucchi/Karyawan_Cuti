@@ -4,7 +4,11 @@ const Karyawan = require('../models/karyawan');
 exports.getKaryawan = (req,res) => {
     Karyawan.findAll({attributes: ['nik','nama', 'alamat', 'tanggallahir', 'tanggalbergabung' ]})
     .then(karyawan => {
-        res.send(karyawan)
+      res.render('./karyawan', {
+        pageTitle: "Karyawan",
+        active: "uk-active",
+        daftarkaryawan: karyawan
+      });
     })
     .catch(err => console.log(err));
 
@@ -33,7 +37,7 @@ exports.getKaryawan = (req,res) => {
   };
 
   exports.deleteKaryawan = ( req,res, next) => {
-    const id = req.params.id;
+    const id = req.body.nik;
     console.log(id);
     console.log(id);
     Karyawan.findByPk(id)
@@ -41,9 +45,8 @@ exports.getKaryawan = (req,res) => {
         return hasil.destroy();
       })
       .then(result => {
-        res.send("Data Karyawan sudah dihapus ");
-
-        // res.redirect('/admin/buktiTemuanruang');
+        // res.send("Data Karyawan sudah dihapus ");
+        res.redirect('/karyawan/');
       })
       .catch(err => console.log(err));
   };
