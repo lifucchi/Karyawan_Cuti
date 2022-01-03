@@ -5,6 +5,7 @@ const sequelize = require('../util/database');
 
 exports.getCuti = (req,res) => {
 
+
   const cutiKaryawan =  
       Cuti.findAll({
         include: [{ model: Karyawan, attributes: ['nama']}]
@@ -28,6 +29,7 @@ exports.getCuti = (req,res) => {
       .all([cutiKaryawan,lebihCuti, sisaCuti])
       .then(count => {
           console.log('**********COMPLETE RESULTS****************');
+          console.log(count[0]);
   
           res.render('./cuti', {
             pageTitle: 'Cuti Karyawan',
