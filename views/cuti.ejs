@@ -16,6 +16,20 @@
             </a>
       </div>
     </div>
+    <% if (error_messages) { %>
+        <div class="uk-card uk-card-body">
+          <div class="uk-alert-warning" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <%= error_messages %>
+        </div>
+    <% } %>
+    <% if (success_messages) { %>
+      <div class="uk-card uk-card-body">
+        <div class="uk-alert-success" uk-alert>
+          <a class="uk-alert-close" uk-close></a>
+          <%= success_messages %>
+      </div>
+    <% } %>
 
     <div class="uk-card uk-card-body">
         <div class="uk-overflow-auto">

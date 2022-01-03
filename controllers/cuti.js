@@ -4,7 +4,18 @@ const Cuti = require('../models/cuti');
 const sequelize = require('../util/database');
 
 exports.getCuti = (req,res) => {
-  
+  if (res.locals.error_messages.length > 0) {
+    res.locals.error_messages = res.locals.error_messages[0];
+  } else {
+    res.locals.error_messages = null;
+  }
+
+  if (res.locals.success_messages.length > 0) {
+    res.locals.success_messages = res.locals.success_messages[0];
+  } else {
+    res.locals.success_messages = null;
+  }
+
 
   const cutiKaryawan =  
       Cuti.findAll({
@@ -47,6 +58,18 @@ exports.getCuti = (req,res) => {
 
 
   exports.getFormCuti = (req,res) => {
+    if (res.locals.error_messages.length > 0) {
+      res.locals.error_messages = res.locals.error_messages[0];
+    } else {
+      res.locals.error_messages = null;
+    }
+  
+    if (res.locals.success_messages.length > 0) {
+      res.locals.success_messages = res.locals.success_messages[0];
+    } else {
+      res.locals.success_messages = null;
+    }
+  
     Karyawan.findAll()
     .then( karyawan =>{
       res.render('./cuti-form', {
@@ -63,6 +86,18 @@ exports.getCuti = (req,res) => {
     
 
     exports.getFormEditCutiKaryawan = (req,res) => {
+      if (res.locals.error_messages.length > 0) {
+        res.locals.error_messages = res.locals.error_messages[0];
+      } else {
+        res.locals.error_messages = null;
+      }
+    
+      if (res.locals.success_messages.length > 0) {
+        res.locals.success_messages = res.locals.success_messages[0];
+      } else {
+        res.locals.success_messages = null;
+      }
+    
       const id = req.query.update;
 
       Cuti.findByPk(id)
@@ -97,9 +132,15 @@ exports.getCuti = (req,res) => {
     })
     .then(result => {
         // res.send("Data Karyawan Cuti sudah ditambahkan ");
+        req.flash('success_messages', 'Cuti Karyawan berhasil ditambah');
       res.redirect('/cuti');
     }
-    ).catch(err => console.log(err));
+    ).catch(err => {
+      console.log(err);
+      req.flash('error_messages', 'Gagal menambah data');
+      res.redirect('cuti')
+  
+    });
   
   };
 
@@ -111,10 +152,15 @@ exports.getCuti = (req,res) => {
       })
       .then(result => {
         // res.send("Data Cuti Karyawan sudah dihapus ");
-
+        req.flash('success_messages', 'Cuti Karyawan berhasil dihapus');
         res.redirect('/cuti');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        req.flash('error_messages', 'Gagal menghapus data');
+        res.redirect('/cuti/')
+    
+      });
   };
   
   exports.putEditCutiKaryawan = (req,res,next) => {
@@ -131,11 +177,17 @@ exports.getCuti = (req,res) => {
       return karyawan.save();
     })
     .then(result => {
+      req.flash('success_messages', 'Cuti Karyawan berhasil diubah');
       res.redirect('/cuti');
     // res.send("Data Karyawan sudah diubah ")
     
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      req.flash('error_messages', 'Gagal mengubah data');
+      res.redirect('/cuti')
+  
+    });
   
   };
   

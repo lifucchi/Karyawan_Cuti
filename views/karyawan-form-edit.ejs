@@ -12,6 +12,20 @@
           <div class="uk-width-medium-8-10">
             <h1>Edit <%= pageTitle%></h1>
         </div>  
+        <% if (error_messages) { %>
+          <div class="uk-card uk-card-body">
+            <div class="uk-alert-warning" uk-alert>
+              <a class="uk-alert-close" uk-close></a>
+              <%= error_messages %>
+          </div>
+      <% } %>
+      <% if (success_messages) { %>
+        <div class="uk-card uk-card-body">
+          <div class="uk-alert-success" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <%= success_messages %>
+        </div>
+      <% } %>
         
           <form id="myForm" method="post" action="/karyawan/edit" novalidate>
             <!-- <div class="uk-margin"> -->

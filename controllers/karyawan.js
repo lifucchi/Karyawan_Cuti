@@ -2,6 +2,18 @@
 const Karyawan = require('../models/karyawan');
 
 exports.getKaryawan = (req,res) => {
+  if (res.locals.error_messages.length > 0) {
+    res.locals.error_messages = res.locals.error_messages[0];
+  } else {
+    res.locals.error_messages = null;
+  }
+
+  if (res.locals.success_messages.length > 0) {
+    res.locals.success_messages = res.locals.success_messages[0];
+  } else {
+    res.locals.success_messages = null;
+  }
+
     Karyawan.findAll({attributes: ['nik','nama', 'alamat', 'tanggallahir', 'tanggalbergabung' ]})
     .then(karyawan => {
       res.render('./karyawan', {
@@ -15,6 +27,18 @@ exports.getKaryawan = (req,res) => {
   };
 
   exports.getFormKaryawan = (req,res) => {
+    if (res.locals.error_messages.length > 0) {
+      res.locals.error_messages = res.locals.error_messages[0];
+    } else {
+      res.locals.error_messages = null;
+    }
+  
+    if (res.locals.success_messages.length > 0) {
+      res.locals.success_messages = res.locals.success_messages[0];
+    } else {
+      res.locals.success_messages = null;
+    }
+  
       res.render('./karyawan-form', {
         pageTitle: "Karyawan",
         active: "uk-active"
@@ -24,7 +48,20 @@ exports.getKaryawan = (req,res) => {
 
 
   exports.getFormEditKaryawan = (req,res) => {
+  
     const id = req.query.update;
+    if (res.locals.error_messages.length > 0) {
+      res.locals.error_messages = res.locals.error_messages[0];
+    } else {
+      res.locals.error_messages = null;
+    }
+  
+    if (res.locals.success_messages.length > 0) {
+      res.locals.success_messages = res.locals.success_messages[0];
+    } else {
+      res.locals.success_messages = null;
+    }
+  
 
     Karyawan.findByPk(id)
     .then(karyawan => {
@@ -40,6 +77,18 @@ exports.getKaryawan = (req,res) => {
 };
 
   exports.postAddKaryawan = (req,res,next) => {
+    if (res.locals.error_messages.length > 0) {
+      res.locals.error_messages = res.locals.error_messages[0];
+    } else {
+      res.locals.error_messages = null;
+    }
+  
+    if (res.locals.success_messages.length > 0) {
+      res.locals.success_messages = res.locals.success_messages[0];
+    } else {
+      res.locals.success_messages = null;
+    }
+  
     const nik = req.body.nik;
     const nama = req.body.nama;
     const alamat = req.body.alamat;
@@ -54,12 +103,18 @@ exports.getKaryawan = (req,res) => {
     tanggalbergabung:tanggalbergabung
     })
     .then(result => {
+      req.flash('success_messages', 'Karyawan berhasil ditambah');
       res.redirect('/karyawan/');
 
         // res.send("Data Karyawan sudah ditambahkan ");
     //   res.redirect('/admin/checklistmeja');
     }
-    ).catch(err => console.log(err));
+    ).catch(err => {
+      console.log(err);
+      req.flash('error_messages', 'Gagal menambah data');
+      res.redirect('/karyawan/add')
+  
+    });
   
   };
 
@@ -75,9 +130,16 @@ exports.getKaryawan = (req,res) => {
       })
       .then(result => {
         // res.send("Data Karyawan sudah dihapus ");
+         req.flash('success_messages', 'Karyawan berhasil dihapus');
+        
         res.redirect('/karyawan/');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        req.flash('error_messages', 'Gagal menghapus data');
+        res.redirect('/karyawan/')
+    
+      });
   };
   
   exports.putEditKaryawan = (req,res,next) => {
@@ -98,11 +160,18 @@ exports.getKaryawan = (req,res) => {
       return karyawan.save();
     })
     .then(result => {
+      req.flash('success_messages', 'Karyawan berhasil diubah');
+
       res.redirect('/karyawan');
     // res.send("Data Karyawan sudah diubah ")
     
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      req.flash('error_messages', 'Gagal mengubah data');
+      res.redirect('/karyawan')
+    });
+  
   
   };
   
