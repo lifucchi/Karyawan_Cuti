@@ -129,8 +129,13 @@ exports.getCuti = (req,res) => {
         group : ['karyawanNik'],
     })
     .then(sisacuti =>{
-      if(!sisacuti){
-        if ( 0 < 12 - sisacuti[0].lamacuti - lamacuti ){
+      // console.log(sisacuti);
+      if(sisacuti[0] != null){
+        console.log(sisacuti[0].lamacuti);
+        let hasil = sisacuti[0].lamacuti - lamacuti;
+        console.log("INI HASIIIIIIIIIL");
+        console.log(hasil);
+        if ( hasil >= 0 ){
           Cuti.create({
             karyawanNik: nik,
             tanggalcuti : tanggalcuti,
@@ -140,46 +145,46 @@ exports.getCuti = (req,res) => {
           .then(result => {
               // res.send("Data Karyawan Cuti sudah ditambahkan ");
             req.flash('success_messages', 'Cuti Karyawan berhasil ditambah');
-            setTimeout(() => { return res.redirect('/cuti');}, 2000);
-
+            // setTimeout(() => { return res.redirect('/cuti');}, 2000);
+            { return res.redirect('/cuti');}
           }).catch(err => {
             console.log(err);
             req.flash('error_messages', 'Gagal menambah data Cuti Karyawan');
-            res.redirect('/cuti')
+            return res.redirect('/cuti')
           });
+        }else{
+          req.flash('error_messages', 'Gagal menambah data karena waktu cuti melebihi 12 hari');
+          return res.redirect('/cuti')
         }
+      }else{
+        Cuti.create({
+          karyawanNik: nik,
+          tanggalcuti : tanggalcuti,
+          lamacuti : lamacuti,
+          keterangan : keterangan
+        })
+        .then(result => {
+            // res.send("Data Karyawan Cuti sudah ditambahkan ");
+          req.flash('success_messages', 'Cuti Karyawan berhasil ditambah');
+          // setTimeout(() => { return res.redirect('/cuti');}, 2000);    
+          return res.redirect('/cuti');    
+        }).catch(err => {
+          console.log(err);
+          req.flash('error_messages', 'Gagal menambah data Cuti Karyawan');
+          return res.redirect('/cuti')
+        });
 
-        req.flash('error_messages', 'Gagal menambah data karena waktu cuti melebihi 12 hari');
-        res.redirect('/cuti')
       }
 
-      Cuti.create({
-        karyawanNik: nik,
-        tanggalcuti : tanggalcuti,
-        lamacuti : lamacuti,
-        keterangan : keterangan
-      })
-      .then(result => {
-          // res.send("Data Karyawan Cuti sudah ditambahkan ");
-        req.flash('success_messages', 'Cuti Karyawan berhasil ditambah');
-
-        setTimeout(() => { return res.redirect('/cuti');}, 2000);
-        
-      }).catch(err => {
-        console.log(err);
-        req.flash('error_messages', 'Gagal menambah data Cuti Karyawan');
-        res.redirect('/cuti')
-      });
 
 
     })
     .catch(err => {
       console.log(err);
       req.flash('error_messages', 'Gagal menambah data');
-      res.redirect('/cuti')
+      return res.redirect('/cuti')
     });
 
- 
   
   };
 

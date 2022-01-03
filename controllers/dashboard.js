@@ -43,8 +43,7 @@ exports.getDashboard = (req,res) => {
   exports.getKaryawanCutiLebihDariSatu = (req,res) => {
 
     Cuti.findAll({
-        include: [{ model: Karyawan, attributes: ['nama']}],
-        attributes: ['karyawanNik', 'tanggalcuti', 'keterangan'],
+        attributes: ['karyawanNik'],
         having: sequelize.where(sequelize.fn('COUNT', sequelize.col('karyawanNik')), '>=', 2),
         group : ['karyawanNik'],
     })
