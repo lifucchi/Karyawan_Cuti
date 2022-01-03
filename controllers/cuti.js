@@ -16,7 +16,6 @@ exports.getCuti = (req,res) => {
     res.locals.success_messages = null;
   }
 
-
   const cutiKaryawan =  
       Cuti.findAll({
         include: [{ model: Karyawan, attributes: ['nama']}]
@@ -25,7 +24,8 @@ exports.getCuti = (req,res) => {
     Cuti.findAll({
       include: [{ model: Karyawan, attributes: ['nama']}],
       attributes: ['karyawanNik', 'tanggalcuti', 'keterangan'],
-      having: sequelize.where(sequelize.fn('COUNT', sequelize.col('karyawanNik')), '>=', 2)
+      having: sequelize.where(sequelize.fn('COUNT', sequelize.col('karyawanNik')), '>=', 2),
+      group : ['karyawanNik'],
   })
 
   const sisaCuti =
@@ -33,7 +33,6 @@ exports.getCuti = (req,res) => {
     include: [{ model: Karyawan, attributes: ['nama']}],
     attributes: ['karyawanNik',  [sequelize.literal('12 - sum(lamacuti)'), 'lamacuti']],
     group : ['karyawanNik'],
-
 })
 
       Promise
@@ -97,7 +96,6 @@ exports.getCuti = (req,res) => {
       } else {
         res.locals.success_messages = null;
       }
-    
       const id = req.query.update;
 
       Cuti.findByPk(id)
@@ -124,23 +122,64 @@ exports.getCuti = (req,res) => {
     const lamacuti = req.body.lamacuti;
     const keterangan = req.body.keterangan;
 
-    Cuti.create({
-      karyawanNik: nik,
-      tanggalcuti : tanggalcuti,
-      lamacuti : lamacuti,
-      keterangan : keterangan
+      Cuti.findAll({
+        where: {karyawanNik: nik},
+        include: [{ model: Karyawan, attributes: ['nama']}],
+        attributes: ['karyawanNik',  [sequelize.literal('12 - sum(lamacuti)'), 'lamacuti']],
+        group : ['karyawanNik'],
     })
-    .then(result => {
-        // res.send("Data Karyawan Cuti sudah ditambahkan ");
+    .then(sisacuti =>{
+      if(!sisacuti){
+        if ( 0 < 12 - sisacuti[0].lamacuti - lamacuti ){
+          Cuti.create({
+            karyawanNik: nik,
+            tanggalcuti : tanggalcuti,
+            lamacuti : lamacuti,
+            keterangan : keterangan
+          })
+          .then(result => {
+              // res.send("Data Karyawan Cuti sudah ditambahkan ");
+            req.flash('success_messages', 'Cuti Karyawan berhasil ditambah');
+            setTimeout(() => { return res.redirect('/cuti');}, 2000);
+
+          }).catch(err => {
+            console.log(err);
+            req.flash('error_messages', 'Gagal menambah data Cuti Karyawan');
+            res.redirect('/cuti')
+          });
+        }
+
+        req.flash('error_messages', 'Gagal menambah data karena waktu cuti melebihi 12 hari');
+        res.redirect('/cuti')
+      }
+
+      Cuti.create({
+        karyawanNik: nik,
+        tanggalcuti : tanggalcuti,
+        lamacuti : lamacuti,
+        keterangan : keterangan
+      })
+      .then(result => {
+          // res.send("Data Karyawan Cuti sudah ditambahkan ");
         req.flash('success_messages', 'Cuti Karyawan berhasil ditambah');
-      res.redirect('/cuti');
-    }
-    ).catch(err => {
+
+        setTimeout(() => { return res.redirect('/cuti');}, 2000);
+        
+      }).catch(err => {
+        console.log(err);
+        req.flash('error_messages', 'Gagal menambah data Cuti Karyawan');
+        res.redirect('/cuti')
+      });
+
+
+    })
+    .catch(err => {
       console.log(err);
       req.flash('error_messages', 'Gagal menambah data');
-      res.redirect('cuti')
-  
+      res.redirect('/cuti')
     });
+
+ 
   
   };
 
